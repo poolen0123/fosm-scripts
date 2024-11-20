@@ -115,10 +115,10 @@ addNode	; Private ; Check for nodes that need to be added
 	;
 ;	s id=$p($p(line,"id="_q,2),q,1)
 
-	set s1=$find(line,"id='")		; find the id key
-	set s2=$find(line,"'",s1)		; find the end of the id value after the id key
+	set s1=$find(line,"id=""")		; find the id key
+	set s2=$find(line,"""",s1)		; find the end of the id value after the id key
 	set id=$extract(line,s1,s2-2)		; extract the id from the line between the above two
-
+	;s ^tmpid=id
 	i id="" q
 	;
 	; ; Patch to add version tag
@@ -144,12 +144,12 @@ addNode	; Private ; Check for nodes that need to be added
 	; ; **********************************
 	s timestamp=$p($p(line,"timestamp="_q,2),q,1)
 	; s ^loadPlanet("element","node",id)=timestamp
-	i '$d(^nodeVersion(id)) s gNodeAdd=gNodeAdd+1 d add^node(.sPipe) q
+	i '$d(^nodeVersion(id)) s gNodeAdd=gNodeAdd+1 d add^node(.sPipe,0) q
 	;
 	s qsBox=$$qsBox^node(id)
 	s oldTimestamp=$p($g(^e(qsBox,"n",id,"a")),$c(1),3)
 	i oldTimestamp="" s oldTimestamp=$g(^e(qsBox,"n",id,"t","@timestamp"))
-	i $$toNumber^date(timestamp)>$$toNumber^date(oldTimestamp) s gNodeModified=gNodeModified+1 d add^node(.sPipe) q
+	i $$toNumber^date(timestamp)>$$toNumber^date(oldTimestamp) s gNodeModified=gNodeModified+1 d add^node(.sPipe,0) q
 	;
 	i line["/>" q
 	;
@@ -166,8 +166,8 @@ addWay	 ; Private ; Check for ways that need to be added
 	;
 ;	s id=$p($p(line,"id="_q,2),q,1)
 
-	set s1=$find(line,"id='")		; find the id key
-	set s2=$find(line,"'",s1)		; find the end of the id value after the id key
+	set s1=$find(line,"id=""")		; find the id key
+	set s2=$find(line,"""",s1)		; find the end of the id value after the id key
 	set id=$extract(line,s1,s2-2)		; extract the id from the line between the above two
 
 	i id="" q
@@ -194,10 +194,10 @@ addWay	 ; Private ; Check for ways that need to be added
 	; ; **********************************
 	s timestamp=$p($p(line,"timestamp="_q,2),q,1)
 	;s ^loadPlanet("element","way",id)=timestamp
-	i '$d(^way(id)) s gWayAdd=gWayAdd+1 d add^way(.sPipe) q
+	i '$d(^way(id)) s gWayAdd=gWayAdd+1 d add^way(.sPipe,0) q
 	;
 	s oldTimestamp=$g(^waytag(id,"@timestamp"))
-	i $$toNumber^date(timestamp)>$$toNumber^date(oldTimestamp) s gWayModified=gWayModified+1 d add^way(.sPipe) q
+	i $$toNumber^date(timestamp)>$$toNumber^date(oldTimestamp) s gWayModified=gWayModified+1 d add^way(.sPipe,0) q
 	;
 	i line["/>" q
 	;
@@ -214,8 +214,8 @@ addRelation	    ; Private ; Check for relations that need to be added
 	;
 ;	s id=$p($p(line,"id="_q,2),q,1)
 
-	set s1=$find(line,"id='")		; find the id key
-	set s2=$find(line,"'",s1)		; find the end of the id value after the id key
+	set s1=$find(line,"id=""")		; find the id key
+	set s2=$find(line,"""",s1)		; find the end of the id value after the id key
 	set id=$extract(line,s1,s2-2)		; extract the id from the line between the above two
 
 	i id="" q
@@ -242,10 +242,10 @@ addRelation	    ; Private ; Check for relations that need to be added
 	; ; **********************************
 	s timestamp=$p($p(line,"timestamp="_q,2),q,1)
 	;s ^loadPlanet("element","relation",id)=timestamp
-	i '$d(^relation(id)) s gRelAdd=gRelAdd+1 d add^relation(.sPipe) q
+	i '$d(^relation(id)) s gRelAdd=gRelAdd+1 d add^relation(.sPipe,0) q
 	;
 	s oldTimestamp=$g(^relationtag(id,"@timestamp"))
-	i $$toNumber^date(timestamp)>$$toNumber^date(oldTimestamp) s gRelModified=gRelModified+1 d add^relation(.sPipe) q
+	i $$toNumber^date(timestamp)>$$toNumber^date(oldTimestamp) s gRelModified=gRelModified+1 d add^relation(.sPipe,0) q
 	;
 	i line["/>" q
 	;

@@ -16,7 +16,7 @@ node	; Node Class (new structure using ^element instead of ^node and ^nodetag)
 	
 	
 	
-	; add(sNode,delete)	; Public ; Add a node
+add(sNode,delete)	; Public ; Add a node
 	; #sNode = stream object containing node
 	;
 	n line,nodeId,users,lat,lon,timestamp,user,uid,version,changeset,qsOld
@@ -475,6 +475,7 @@ sUpdateTag(sNode,qsOld,qsNew,nodeId,changeset,version,delete)	; Private load a t
 	i value["'" s value=$$xmlEscapeApostrophe(value)
 	i $l(value)>4000 s value=$e(value,1,4000)_".."
 	;
+	; s ^tmpkey=nodeId_"_"_key_"_"_value
 	d updateTag(qsOld,qsNew,nodeId,key,value,changeset,version,delete)
 	q
 	

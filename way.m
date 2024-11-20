@@ -832,7 +832,7 @@ restWayHistory(wayId)	; Public ; All versions of way
 	i wayId'?1.n d notFound^http,logEnd^xapi(logId,0,"404 Not found") q
 	;
 	; Is it there?
-	;i '$d(^wayVersion(wayId)),$d(^way(wayId)) d  q
+	i '$d(^wayVersion(wayId)),$d(^way(wayId)) d  q
 	. w "Status: 307 Moved Temporarily",!
 	. w "Location: ","http://api.openstreetmap.org/api/0.6/way/"_wayId_"/history",!
 	. w !
