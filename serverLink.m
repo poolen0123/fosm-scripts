@@ -20,6 +20,7 @@ serverLink	; Server Link
 	; Main entry point
 start(port,logLevel)	; 
 	n mImplementation
+        k ^tmp
 	s mImplementation=$$mImplementation()
 	;
 	s port=$g(port) i port="" s port=6500
@@ -116,7 +117,7 @@ open03(port,logLevel)	  ;
 	. s ^serverLink("process",process)="starting"
 	. l -^serverLink("process",process)
 	. ; j open03a^serverLink(port,logLevel,process)
-	. zsystem "$zappy/scripts/"_^osmPlanet("instance")_" "_port_" "_$g(^serverLink("logLevel"))_" "_process
+	. zsystem "$zappy/"_^osmPlanet("instance")_" "_port_" "_$g(^serverLink("logLevel"))_" "_process
 	. ;
 	. ; Wait until it has started
 	. s started=0

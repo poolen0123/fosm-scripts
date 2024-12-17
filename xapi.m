@@ -15,18 +15,23 @@ xapi	; OpenStreetMap API 0.6 with extensions
 	; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 	; Test
-	s constraint("element")=ASTERISK
-	;s constraint("kv",1,"key")="restriction"
-	;s constraint("kv",1,"value")="no_right_turn"
-	;s bllon=14.545898,bllat=50.559799,trlon=14.721680,trlat=50.634557
-	;s bllon=-180,bllat=-90,trlon=180,trlat=90
-	s bllon=12.01,bllat=12.01,trlon=12.02,trlat=12.02
-	d bbox(bllat,bllon,trlat,trlon,.constraint,"")
+	; s EQUALS=$c(1)
+        ; s LEFTBRACKET=$c(2)
+        ; s RIGHTBRACKET=$c(3)
+        ; s BAR=$c(4)
+        ; s SLASH=$c(5)
+        ; s ASTERISK=$c(6)
+	; s constraint("element")=ASTERISK
+	; s constraint("kv",1,"key")="restriction"
+	; s constraint("kv",1,"value")="no_right_turn"
+	; s bllon=14.545898,bllat=50.559799,trlon=14.721680,trlat=50.634557
+	; s bllon=-180,bllat=-90,trlon=180,trlat=90
+	; s bllon=12.01,bllat=12.01,trlon=12.02,trlat=12.02
+	; d bbox(bllat,bllon,trlat,trlon,.constraint,"")
 	q
 	
 	
 bbox(bllat,bllon,trlat,trlon,constraint,qualifiers)	; Public ; Returns an osm dataset for a bbox and tag selection
-	;
 	; Constraint object:
 	; constraint("element") - which element to select
 	; constraint("kv",keySeq,"key")=value
@@ -213,14 +218,14 @@ bbox(bllat,bllon,trlat,trlon,constraint,qualifiers)	; Public ; Returns an osm da
 	s logFile="muninRequests.log"
 	o logFile:NEW u logFile w ^munin("apiCalls"),! c logFile
 	;
-	s logFile="muninResponseTotal.log"
-	o logFile:NEW u logFile w ^munin("responseTotal"),! c logFile
+	; s logFile="muninResponseTotal.log"
+	; o logFile:NEW u logFile w ^munin("responseTotal"),! c logFile
 	;
-	s logFile="muninResponseDB.log"
-	o logFile:NEW u logFile w ^munin("responseDB"),! c logFile
+	; s logFile="muninResponseDB.log"
+	; o logFile:NEW u logFile w ^munin("responseDB"),! c logFile
 	;
-	s logFile="muninResponseIO.log"
-	o logFile:NEW u logFile w ^munin("responseIO"),! c logFile
+	; s logFile="muninResponseIO.log"
+	; o logFile:NEW u logFile w ^munin("responseIO"),! c logFile
 	;
 	q
 	

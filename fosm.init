@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/tcsh
 
 ### BEGIN INIT INFO
 # Provides:          xapi xapid
@@ -11,42 +11,38 @@
 # Description: Provide xapid server
 ### END INIT INFO
 
-N=/etc/init/fosm
+# N=/etc/init/fosm
 
-export zappy="/srv/fosm"
-export gtm_dist="$zappy/gtm"
-export gtmx="$zappy/gtmx"
-export gtmgbldir="$zappy/data/xapi.gld"
-export gtmroutines="$zappy/scripts/o($zappy/scripts $zappy/serenji $gtmx) $gtm_dist/libgtmutil.so $gtm_dist"
-export gtm="$gtmx/gtmrun ^direct gtm"
-export gtmrun="$gtmx/gtmrun"
-export mupip="$gtm_dist/mupip"
-export lke="$gtm_dist/lke"
-export gde="$gtmx/gtmrun ^GDE"
-export dse="$gtm_dist/dse"
-export gtm_repl_instance="fosm02.repl"
-export gtm_repl_instname="fosm02"
-export gtm_access_ci="$zappy/scripts/gtm_access.ci"
-export gtm_data_dir="$zappy/data"
+set curr_dir=`pwd`
+#export zappy="/srv/fosm"
+setenv zappy $curr_dir
+#export gtm_dist="$zappy/gtm"
+#export gtmx="$zappy/gtmx"
+#export gtmgbldir="$zappy/data/xapi.gld"
+#export gtmroutines="$zappy/scripts/o($zappy/scripts $zappy/serenji $gtmx) $gtm_dist/libgtmutil.so $gtm_dist"
+#export gtm="${gtm_dist}/mumps -dir"
+setenv gtm_access_ci "${curr_dir}/gtm_access.ci"
+#export gtm_data_dir="$zappy/data"
 
-PATH=$PATH:$zappy/scripts:$gtm_dist
+#PATH=$PATH:$zappy/scripts:$gtm_dist
+#setenv PATH "${PATH}":${curr_dir}:${gtm_dist}"
 
-export GTMCI=$zappy/scripts/xapi.ci
+setenv GTMCI ${curr_dir}"/xapi.ci"
 
 
-set -e
-
-case "$1" in
-  start)
-	cd $zappy/data
-	($zappy/scripts/xapid </dev/null >/dev/null 2>>xapid.err &)
-	;;
-  stop|reload|restart|force-reload)
-	;;
-  *)
-	echo "Usage: $N {start|stop|restart|force-reload}" >&2
-	exit 1
-	;;
-esac
-
-exit 0
+# set -e
+# 
+# case "$1" in
+#   start)
+# 	cd /ydbdir/fosm-scripts
+# 	(/ydbdir/fosm-scripts/xapid </dev/null >/dev/null 2>>xapid.err &)
+# 	;;
+#   stop|reload|restart|force-reload)
+# 	;;
+#   *)
+# 	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+# 	exit 1
+# 	;;
+# esac
+# 
+# exit 0
